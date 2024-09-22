@@ -1,0 +1,275 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+        jcenter()
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public' }
+        maven { url = 'https://maven.parchmentmc.org' }
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:${forgegradle_version}"
+        classpath "org.spongepowered:mixingradle:${mixingradle_version}"
+        classpath "org.parchmentmc:librarian:${librarian_version}"
+    }
+}
+
+plugins {
+    id "me.shedaniel.unified-publishing" version "0.1.+"
+}
+
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
+apply plugin: 'com.matthewprenger.cursegradle'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'idea'
+
+version = mod_version
+group = "com.${author}.${modid}"
+version = "${minecraft_version}-${mod_version}"
+archivesBaseName = modid
+
+// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+minecraft {
+    if (Boolean.parseBoolean(project.use_parchment)) {
+        mappings channel: 'parchment', version: "${parchment_version}-${minecraft_version}"
+    } else {
+        mappings channel: 'official', version: "${minecraft_version}"
+    }
+
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            args "--debug", "--stacktrace", "--scan", "-mixin.config=${modid}.mixins.json".toString()
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                "${modid}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('server')
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            args "--debug", "--stacktrace", "--scan", "-mixin.config=${modid}.mixins.json".toString()
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                "${modid}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            args "--mod", modid, "--all", "--output", file('src/generated/resources/'), "--existing", file('src/main/resources/')
+
+            mods {
+                "${modid}" {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+repositories {
+    maven {
+        // location of the maven for Registrate and Flywheel
+        name = 'tterrag maven'
+        url = 'https://maven.tterrag.com'
+    }
+    maven {
+        // location of the maven that hosts JEI files since January 2023
+        // location of the maven for Vazkii's mods
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        // location of the maven for Curios API
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        // location of maven for CC: Tweaked
+        name = "squiddev"
+        url = "https://squiddev.cc/maven/"
+    }
+
+    maven {
+        url = 'https://www.cursemaven.com'
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
+
+    maven {
+        url "https://jitpack.io"
+        content {
+            includeGroup "com.github.llamalad7.mixinextras"
+        }
+    }
+
+    maven {
+        url "https://maven.saps.dev/minecraft"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.ftb.mods"
+        }
+    }
+    maven {
+        url "https://maven.architectury.dev/"
+        content {
+            includeGroup "dev.architectury"
+        }
+    }
+    mavenLocal()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:22.0.0'
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
+    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
+    implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
+
+    //implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
+    //implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
+    //implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
+
+    //annotationProcessor "com.github.llamalad7.mixinextras:mixinextras-common:${mixin_extras}"
+    //implementation fg.deobf("com.github.llamalad7.mixinextras:mixinextras-forge:${mixin_extras}")
+
+    compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge-api:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
+
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${curios_minecraft_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${curios_minecraft_version}")
+
+    implementation fg.deobf("curse.maven:jade-324717:${jade_id}")
+
+
+    if (cc_tweaked_enable.toBoolean()) {
+        compileOnly("cc.tweaked:cc-tweaked-${cc_tweaked_minecraft_version}-core-api:${cc_tweaked_version}")
+        compileOnly fg.deobf("cc.tweaked:cc-tweaked-${cc_tweaked_minecraft_version}-forge-api:${cc_tweaked_version}")
+        runtimeOnly fg.deobf("cc.tweaked:cc-tweaked-${cc_tweaked_minecraft_version}-forge:${cc_tweaked_version}")
+    }
+
+
+    if (System.getProperty('idea.sync.active') != 'true') {
+        annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+    }
+
+    //annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+}
+
+// Include resources generated by data generators.
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+mixin {
+    add sourceSets.main, 'create_mechanical_chicken.refmap.json'
+    config 'create_mechanical_chicken.mixins.json'
+
+    debug.verbose = true
+    debug.export = true
+}
+
+
+// Example for how to get properties into the manifest for reading at runtime.
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : modid,
+                "Specification-Vendor"    : author,
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.version,
+                "Implementation-Vendor"   : author,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs"            : "${modid}.mixins.json"
+        ])
+    }
+}
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+compileJava {
+    options.compilerArgs = ['-Xdiags:verbose']
+}
+
+
+jar.finalizedBy('reobfJar')
+tasks.jarJar.finalizedBy('reobfJarJar')
+
+
+
+unifiedPublishing {
+    project {
+        displayName = "${archivesBaseName}-${project.version}"
+        changelog = rootProject.file("changes/${minecraft_version}-${mod_version}.md").text // Optional, in markdown format
+        releaseType = "release" // Optional, use "release", "beta" or "alpha"
+        gameVersions = ["${minecraft_version}"]
+        gameLoaders = ["forge"]
+
+        mainPublication tasks.jar // Declares the publicated jar
+
+        var cfToken = System.getenv("CF_TOKEN")
+        if(cfToken != null) {
+            curseforge {
+                token = cfToken
+                id = "${curseforge_id}" // Required, must be a string, ID of CurseForge project
+                //id = "661938" // Required, must be a string, ID of CurseForge project
+                //gameVersions.addAll "Java 17"
+                relations {
+                    depends "create"
+                    optional "jei"
+                    optional "jade"
+                }
+            }
+        }
+
+        var mrToken = System.getenv("MODRINTH_TOKEN")
+        if(mrToken != null) {
+            modrinth {
+                token = mrToken
+
+                id = "${modrinth_id}"// Required, must be a string, ID of Modrinth project
+                relations {
+                    depends "create"
+                    optional "jei"
+                    optional "jade"
+                }
+            }
+        }
+    }
+}

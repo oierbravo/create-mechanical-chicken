@@ -1,0 +1,9 @@
+// 1.20.1	2024-09-22T04:33:01.278417451	Registrate Provider for create_mechanical_chicken [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+7e5fb327de6bf1b08d30bdaba19f3c9d91f1d1b2 assets/create_mechanical_chicken/blockstates/mechanical_chicken.json
+d3de5980cb9c567d98738bd7030b948a7475bc8a assets/create_mechanical_chicken/lang/en_ud.json
+b3aaf8d0df444e5b448a10255daa64048a71f8a4 assets/create_mechanical_chicken/lang/en_us.json
+1b288bedc81e809ca237aeba2a1374848704f690 assets/create_mechanical_chicken/models/item/mechanical_chicken.json
+f7187a58dda8359cd6db8b417056c703ceb1c169 data/create_mechanical_chicken/advancements/recipes/misc/crafting/mechanical_chicken.json
+d2853dc3d198aa360e6ca6d9d5139df7a45bc028 data/create_mechanical_chicken/loot_tables/blocks/mechanical_chicken.json
+71ac63fecefec3a5f2c9b7dbd968aa58eedb06d6 data/create_mechanical_chicken/recipes/crafting/mechanical_chicken.json
+b09a0cf0e791b10bc3ea53ca724685d5b882c892 data/minecraft/tags/blocks/mineable/pickaxe.json

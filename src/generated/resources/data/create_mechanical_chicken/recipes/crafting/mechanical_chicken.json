@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "create:brass_sheet"
+    },
+    "C": {
+      "item": "create:cogwheel"
+    },
+    "E": {
+      "tag": "forge:eggs"
+    },
+    "S": {
+      "item": "create:shaft"
+    },
+    "V": {
+      "item": "create:item_vault"
+    }
+  },
+  "pattern": [
+    " C ",
+    "EVE",
+    "BSB"
+  ],
+  "result": {
+    "item": "create_mechanical_chicken:mechanical_chicken"
+  },
+  "show_notification": true
+}

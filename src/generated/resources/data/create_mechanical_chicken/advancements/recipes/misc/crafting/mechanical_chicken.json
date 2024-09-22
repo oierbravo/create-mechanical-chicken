@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_brass_sheet": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "create:casing"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "create_mechanical_chicken:crafting/mechanical_chicken"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_brass_sheet",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "create_mechanical_chicken:crafting/mechanical_chicken"
+    ]
+  },
+  "sends_telemetry_event": false
+}

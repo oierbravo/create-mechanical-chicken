@@ -1,0 +1,31 @@
+modLoader="javafml" #mandatory
+loaderVersion="[47,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+license="MIT"
+[[mods]] #mandatory
+modId="create_mechanical_chicken" #mandatory
+version="${file.jarVersion}" #mandatory
+displayName="Create Mechanical Chicken" #mandatory
+logoFile="logo.png" #optional
+credits="Thanks to the Creators of Create" #optional
+authors="oierbravo" #optional
+description='''
+Simple chicken egg generator
+'''
+[[dependencies.create_mechanical_chicken]] #optional
+modId="forge" #mandatory
+mandatory=true #mandatory
+versionRange="[43,)" #mandatory
+ordering="NONE"
+side="BOTH"
+[[dependencies.create_mechanical_chicken]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.create_mechanical_chicken]]
+    modId = "create"
+    mandatory = true
+    versionRange="[0.5.1.h,)"
+    ordering = "AFTER"
+    side = "BOTH"

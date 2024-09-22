@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "priority": 1100,
+  "package": "com.oierbravo.mechanical_chicken.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "refmap": "create_mechanical_chicken.refmap.json",
+  "mixins": [],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
