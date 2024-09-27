@@ -10,5 +10,6 @@
   "create_mechanical_chicken.ponder.mechanical_chicken.text_3": "Fluid input can ONLY go from the FRONT side",
   "create_mechanical_chicken.ponder.mechanical_chicken.text_4": "Egg output is ONLY located on the BACK side",
   "create_mechanical_chicken.ponder.mechanical_chicken.text_5": "Can only be extracted by automation",
+  "create_mechanical_chicken.recipe": "Mechanical Chicken Recipe",
   "itemGroup.create_mechanical_chicken:main": "Create Mechanical Chicken"
 }

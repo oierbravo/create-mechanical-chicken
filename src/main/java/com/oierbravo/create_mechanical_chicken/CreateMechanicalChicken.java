@@ -73,6 +73,8 @@ public class CreateMechanicalChicken
         registerLang("ponder.mechanical_chicken.text_4", "Egg output is ONLY located on the BACK side");
         registerLang("ponder.mechanical_chicken.text_5", "Can only be extracted by automation");
 
+        registerLang("recipe", "Mechanical Chicken Recipe");
+
 
     }
     private void doClientStuff(final FMLClientSetupEvent event) {

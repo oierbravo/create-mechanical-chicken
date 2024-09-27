@@ -4,10 +4,16 @@ import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
 import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenConfigs;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.stream.Collectors;
 
 public class ModConfigs {
     public static ForgeConfigSpec COMMON;
