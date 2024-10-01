@@ -14,6 +14,7 @@ Generates eggs with rotation and fluid.
     - Stress impact
     - Fluid capacity
     - Required fluid amount
-    - Required fluid type
+    - Required fluid type (seed oil by default)
+- Seed oil fluid
 
 **Thanks to the Creators of Create.**

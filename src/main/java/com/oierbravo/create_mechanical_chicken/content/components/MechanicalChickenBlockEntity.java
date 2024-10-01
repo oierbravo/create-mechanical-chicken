@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -20,6 +21,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -30,6 +32,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -40,6 +43,9 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 public class MechanicalChickenBlockEntity extends KineticBlockEntity implements CycleBehavior.CycleBehaviourSpecifics, IHavePercent {
 
     private CycleBehavior cycleBehaviour;
+
+
+
 
     public final ItemStackHandler outputInventory = new ItemStackHandler(1) {
         @Override
@@ -65,6 +71,9 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
         inputTank = new SmartFluidTankBehaviour(SmartFluidTankBehaviour.INPUT, this, 1, MechanicalChickenConfigs.FLUID_CAPACITY.get(), true)
                 .whenFluidUpdates(() -> contentsChanged = true);
         behaviours.add(inputTank);
+        FluidStack requiredFluidStack = getRequiredFluidStack();
+
+        inputTank.getPrimaryHandler().setValidator(fluidStack ->fluidStack.isFluidEqual(requiredFluidStack));
 
         fluidCapability = LazyOptional.of(() -> {
             LazyOptional<? extends IFluidHandler> inputCap = inputTank.getCapability();
@@ -133,14 +142,31 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
 
     @Override
     public boolean tryProcess(boolean simulate) {
+
         if(inputTank.getPrimaryHandler().isEmpty())
             return false;
+
+        assert getRequiredFluid() != null;
+        FluidStack requiredFluidStack = new FluidStack(getRequiredFluid(), MechanicalChickenConfigs.REQUIRED_FLUID_AMOUNT.get());
+        //((FluidStack fluid) -> fluid.getFluid().isSame(fluidOutput))
+
+        if(!inputTank.getPrimaryHandler().isFluidValid(requiredFluidStack))
+            return false;
+
         if(inputTank.getPrimaryHandler().getFluidAmount() < MechanicalChickenConfigs.REQUIRED_FLUID_AMOUNT.get())
             return false;
+        if(ItemStack.EMPTY != outputInventory.insertItem(0, new ItemStack(Items.EGG,MechanicalChickenConfigs.OUTPUT_AMOUNT.get()),true))
+            return false;
+
+        FluidStack test = inputTank.getPrimaryHandler().drain(requiredFluidStack, IFluidHandler.FluidAction.SIMULATE);
+
+        //if(FluidStack.EMPTY != inputTank.getPrimaryHandler().drain(requiredFluidStack, IFluidHandler.FluidAction.SIMULATE))
+        //    return false;
+
         if(simulate)
             return true;
 
-        inputTank.getPrimaryHandler().drain(new FluidStack(Fluids.WATER.getSource(),MechanicalChickenConfigs.REQUIRED_FLUID_AMOUNT.get()), IFluidHandler.FluidAction.EXECUTE);
+        inputTank.getPrimaryHandler().drain(requiredFluidStack, IFluidHandler.FluidAction.EXECUTE);
         outputInventory.insertItem(0, new ItemStack(Items.EGG,MechanicalChickenConfigs.OUTPUT_AMOUNT.get()),false);
 
         return true;
@@ -166,4 +192,17 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
     public int getProgressPercent() {
         return this.cycleBehaviour.getProgressPercent();
     }
+
+    public Fluid getRequiredFluid(){
+        return ForgeRegistries.FLUIDS.getValue(new ResourceLocation(MechanicalChickenConfigs.REQUIRED_FLUID.get()));
+    }
+
+    public FluidStack getRequiredFluidStack(){
+        Fluid requiredFluid = getRequiredFluid();
+        if(requiredFluid == null)
+            return FluidStack.EMPTY;
+        return new FluidStack(requiredFluid, MechanicalChickenConfigs.REQUIRED_FLUID_AMOUNT.get());
+    }
+
+
 }

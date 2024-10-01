@@ -1,6 +1,7 @@
 package com.oierbravo.create_mechanical_chicken;
 
 import com.oierbravo.create_mechanical_chicken.content.components.*;
+import com.oierbravo.create_mechanical_chicken.registrate.ModFluids;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
@@ -58,5 +59,9 @@ public class ModRegistration {
 	public static void init() {
 		// load the class and register everything
 		CreateMechanicalChicken.LOGGER.info("Registering blocks for " + CreateMechanicalChicken.DISPLAY_NAME);
+		if(MechanicalChickenConfigs.SEED_OIL_ENABLED.get()){
+			ModFluids.register();
+		}
+
 	}
 }

@@ -18,6 +18,7 @@ public class MechanicalChickenConfigs {
     public static ForgeConfigSpec.IntValue FLUID_CAPACITY;
     public static ForgeConfigSpec.IntValue REQUIRED_FLUID_AMOUNT;
     public static ForgeConfigSpec.ConfigValue<String> REQUIRED_FLUID;
+    public static ForgeConfigSpec.BooleanValue SEED_OIL_ENABLED;
 
     public static void registerCommonConfig(ForgeConfigSpec.Builder COMMON_BUILDER) {
         COMMON_BUILDER.comment("Settings for the mechanical chicken").push("create_mechanical_chicken");
@@ -42,7 +43,9 @@ public class MechanicalChickenConfigs {
                 .defineInRange("outputAmount", 1, 1, Integer.MAX_VALUE);
         REQUIRED_FLUID = COMMON_BUILDER
                 .comment("Required fluid")
-                        .define("requiredFluid","minecraft:water", MechanicalChickenConfigs::validateFluidName);
+                        .define("requiredFluid","create_mechanical_chicken:seed_oil", MechanicalChickenConfigs::validateFluidName);
+
+        SEED_OIL_ENABLED = COMMON_BUILDER.define("seedOilEnabled",true);
 
         COMMON_BUILDER.pop();
     }
