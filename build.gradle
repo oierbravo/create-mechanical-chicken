@@ -189,6 +189,10 @@ dependencies {
         annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
     }
 
+    //runtimeOnly fg.deobf("curse.maven:createaddition-439890:5658602")
+    //runtimeOnly fg.deobf("curse.maven:create-diesel-generators-869316:5401010")
+    //runtimeOnly fg.deobf("curse.maven:tagtooltips-899941:4687165")
+
     //annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
 }

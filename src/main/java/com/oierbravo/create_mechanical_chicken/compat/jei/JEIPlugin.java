@@ -24,16 +24,15 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
@@ -140,16 +139,32 @@ public class JEIPlugin implements IModPlugin {
         public void draw(MechanicalChickenRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
             Minecraft minecraft = Minecraft.getInstance();
         }
+        private static FluidIngredient getFluidIngredientFromConfig(){
+            FluidIngredient fluidIngredient = FluidIngredient.EMPTY;
+            final String fluidResourceRaw = MechanicalChickenConfigs.REQUIRED_FLUID.get();
+            int configuredAmount = MechanicalChickenConfigs.REQUIRED_FLUID_AMOUNT.get();
+            if(fluidResourceRaw.startsWith("#")){
+                ResourceLocation fluidTag = ResourceLocation.tryParse(fluidResourceRaw.replace("#",""));
+                assert fluidTag != null;
+                return FluidIngredient.fromTag(FluidTags.create(fluidTag),configuredAmount);
+            }
+            final ResourceLocation desiredFluid = new ResourceLocation(fluidResourceRaw);
+
+            if (ForgeRegistries.FLUIDS.containsKey(desiredFluid)) {
+                fluidIngredient = FluidIngredient.fromFluid(ForgeRegistries.FLUIDS.getValue(desiredFluid), configuredAmount);
+            } else {
+                CreateMechanicalChicken.LOGGER.error("Unknown fluid '{}' in config, using default '{}' instead", fluidResourceRaw, "minecraft:water");
+                fluidIngredient = FluidIngredient.fromFluid(Fluids.WATER, configuredAmount);
+            }
+            return fluidIngredient;
+        }
 
         public static List<MechanicalChickenRecipe> getRecipes() {
             List<MechanicalChickenRecipe> recipes = new ArrayList<>();
-            Fluid configuredFluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(MechanicalChickenConfigs.REQUIRED_FLUID.get()));
-
-            int configuredInputAmount = MechanicalChickenConfigs.REQUIRED_FLUID_AMOUNT.get();
             int configuredOutputAmount = MechanicalChickenConfigs.OUTPUT_AMOUNT.get();
 
             recipes.add(new MechanicalChickenRecipe(
-                    FluidIngredient.fromFluid(configuredFluid,configuredInputAmount),
+                    getFluidIngredientFromConfig(),
                     new ItemStack(Items.EGG,configuredOutputAmount)
             ));
             return recipes;

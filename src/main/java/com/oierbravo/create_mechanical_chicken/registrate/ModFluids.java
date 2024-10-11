@@ -35,9 +35,11 @@ public class ModFluids {
                             .slopeFindDistance(3)
                             .explosionResistance(100f))
                     .tag(AllTags.forgeFluidTag("seed_oil"))
+                    .tag(AllTags.forgeFluidTag("plantoil"))
                     .source(ForgeFlowingFluid.Source::new) // TODO: remove when Registrate fixes FluidBuilder
                     .bucket()
                     .tag(AllTags.forgeItemTag("buckets/seed_oil"))
+                    .tag(AllTags.forgeItemTag("buckets/plantoil"))
                     .build()
                     .register();
 

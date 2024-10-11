@@ -43,6 +43,8 @@ public class FluidExistsCondition  implements ICondition {
     }
 
     public boolean test(ICondition.IContext context) {
+        if(fluid.getNamespace().startsWith("#"))
+            return true; //Tags always true;
         return ForgeRegistries.FLUIDS.containsKey(this.fluid);
     }
     public static class Serializer implements IConditionSerializer<FluidExistsCondition> {

@@ -33,7 +33,7 @@ public class MechanicalChickenRecipeGen extends RecipeProvider {
 
         new ProcessingRecipeBuilder<>(CompactingRecipe::new,CreateMechanicalChicken.asResource("compacting_seed_oil"))
                 .require(Tags.Items.SEEDS)
-                .output(ModFluids.SEED_OIL.get(),25)
+                .output(ModFluids.SEED_OIL.get(),100)
                 .withCondition(new FluidExistsCondition(ModFluids.SEED_OIL))
                 .build(pWriter);
 

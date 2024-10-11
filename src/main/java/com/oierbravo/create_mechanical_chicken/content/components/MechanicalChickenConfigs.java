@@ -1,11 +1,18 @@
 package com.oierbravo.create_mechanical_chicken.content.components;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.slf4j.Logger;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,14 +50,10 @@ public class MechanicalChickenConfigs {
                 .defineInRange("outputAmount", 1, 1, Integer.MAX_VALUE);
         REQUIRED_FLUID = COMMON_BUILDER
                 .comment("Required fluid")
-                        .define("requiredFluid","create_mechanical_chicken:seed_oil", MechanicalChickenConfigs::validateFluidName);
+                        .define("requiredFluid","#forge:seed_oil");
 
         SEED_OIL_ENABLED = COMMON_BUILDER.define("seedOilEnabled",true);
 
         COMMON_BUILDER.pop();
-    }
-    private static boolean validateFluidName(final Object obj)
-    {
-        return obj instanceof final String fluidName && ForgeRegistries.FLUIDS.containsKey(new ResourceLocation(fluidName));
     }
 }

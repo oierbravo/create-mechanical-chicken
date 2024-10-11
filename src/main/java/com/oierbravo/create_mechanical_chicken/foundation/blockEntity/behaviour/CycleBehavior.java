@@ -1,17 +1,11 @@
 package com.oierbravo.create_mechanical_chicken.foundation.blockEntity.behaviour;
 
-import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenBlockEntity;
-import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.data.SoundDefinition;
 
 public class CycleBehavior extends BlockEntityBehaviour {
 
