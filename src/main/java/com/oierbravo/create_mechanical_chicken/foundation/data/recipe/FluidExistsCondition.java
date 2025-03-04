@@ -1,17 +1,13 @@
 package com.oierbravo.create_mechanical_chicken.foundation.data.recipe;
 
 import com.google.gson.JsonObject;
-import com.simibubi.create.foundation.fluid.FluidHelper;
 import com.tterrag.registrate.util.entry.FluidEntry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
 
 public class FluidExistsCondition  implements ICondition {
     private static final ResourceLocation NAME = new ResourceLocation("create_mechanical_chicken", "fluid_exists");

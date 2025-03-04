@@ -5,8 +5,6 @@ import com.oierbravo.create_mechanical_chicken.registrate.ModFluids;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
-import com.simibubi.create.Create;
-import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
@@ -15,7 +13,6 @@ import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.Tags;
 
@@ -30,7 +27,7 @@ public class ModRegistration {
             .properties(p -> p.mapColor(MapColor.METAL))
 			.transform(pickaxeOnly())
 			.blockstate(BlockStateGen.horizontalBlockProvider(true))
-			.transform(BlockStressDefaults.setImpact(MechanicalChickenConfigs.STRESS_IMPACT.get()))
+			//.transform(BlockStressDefaults.setImpact(MechanicalChickenConfigs.STRESS_IMPACT.get()))
 			.recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.get())
 					.define('S',AllBlocks.SHAFT)
                     .define('V', AllBlocks.ITEM_VAULT)
@@ -49,7 +46,7 @@ public class ModRegistration {
 
 	public static final BlockEntityEntry<MechanicalChickenBlockEntity> MECHANICAL_CHICKEN_BLOCK_ENTITY = REGISTRATE
 			.blockEntity("mechanical_chicken_block_entity", MechanicalChickenBlockEntity::new)
-			.instance(() -> MechanicalChickenInstance::new)
+			.visual(() -> MechanicalChickenVisual::new)
 			.renderer(() -> MechanicalChickenRenderer::new)
 			.validBlocks(MECHANICAL_CHICKEN_BLOCK)
 			.register();

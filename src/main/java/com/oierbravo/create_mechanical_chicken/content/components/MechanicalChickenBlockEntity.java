@@ -161,7 +161,8 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
 
     @Override
     public void playSound() {
-        level.playSound((Entity) null, worldPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, 1.0F,1.0f);
+        //MechanicalChickenConfigs.REQUIRED_FLUID.get()
+        level.playSound((Entity) null, worldPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, 0.6F,1.0f);
     }
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {

@@ -3,31 +3,23 @@ package com.oierbravo.create_mechanical_chicken;
 import com.mojang.logging.LogUtils;
 import com.oierbravo.create_mechanical_chicken.foundation.data.recipe.FluidExistsCondition;
 import com.oierbravo.create_mechanical_chicken.infrastructure.data.ModDataGen;
+import com.oierbravo.create_mechanical_chicken.ponders.ModPonderPlugin;
 import com.oierbravo.create_mechanical_chicken.registrate.*;
-import com.simibubi.create.AllFluids;
-import com.simibubi.create.AllSoundEvents;
-import com.simibubi.create.Create;
-import com.simibubi.create.content.equipment.potatoCannon.BuiltinPotatoProjectileTypes;
-import com.simibubi.create.content.fluids.tank.BoilerHeaters;
-import com.simibubi.create.content.kinetics.crafter.CrafterHelper;
-import com.simibubi.create.foundation.advancement.AllAdvancements;
-import com.simibubi.create.foundation.advancement.AllTriggers;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
-import com.simibubi.create.foundation.utility.AttachedRegistry;
+import net.createmod.catnip.lang.FontHelper;
+import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
@@ -41,10 +33,10 @@ public class CreateMechanicalChicken
 
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);
     static {
-        REGISTRATE.setTooltipModifierFactory(item -> {
-            return new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
-                    .andThen(TooltipModifier.mapNull(KineticStats.create(item)));
-        });
+        REGISTRATE.setTooltipModifierFactory(item ->
+                new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
+                        .andThen(TooltipModifier.mapNull(KineticStats.create(item)))
+        );
     }
     public static final Logger LOGGER = LogUtils.getLogger();
 
@@ -94,23 +86,10 @@ public class CreateMechanicalChicken
 
     }
 
-    /*@SubscribeEvent //ModBus, can't use addListener due to nested genetics.
-    public void registerRecipeSerialziers(RegistryEvent.Register<IRecipeSerializer<?>> event)
-    {
-        CraftingHelper.register((FluidExistsCondition.Serializer.INSTANCE);
-
-
-    }
-    private void init(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() ->
-            CraftingHelper.register(FluidExistsCondition.Serializer.INSTANCE)
-        );
-
-
-    }*/
-
     private void doClientStuff(final FMLClientSetupEvent event) {
-        event.enqueueWork(ModPonders::register);
+
+        PonderIndex.addPlugin(new ModPonderPlugin());
+
     }
 
     public static CreateRegistrate registrate() {

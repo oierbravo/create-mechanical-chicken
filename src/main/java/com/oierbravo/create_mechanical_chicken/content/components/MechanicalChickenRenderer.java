@@ -1,8 +1,5 @@
 package com.oierbravo.create_mechanical_chicken.content.components;
 
-import com.jozufozu.flywheel.backend.Backend;
-import com.jozufozu.flywheel.core.PartialModel;
-import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -10,9 +7,9 @@ import com.oierbravo.create_mechanical_chicken.foundation.blockEntity.behaviour.
 import com.oierbravo.create_mechanical_chicken.registrate.ModPartials;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.utility.AngleHelper;
+import dev.engine_room.flywheel.api.visualization.VisualizationManager;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -32,7 +29,7 @@ public class MechanicalChickenRenderer extends KineticBlockEntityRenderer<Mechan
 
     @Override
     protected void renderSafe(MechanicalChickenBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        if (Backend.canUseInstancing(be.getLevel()))
+        if (VisualizationManager.supportsVisualization(be.getLevel()))
             return;
 
         VertexConsumer vb = buffer.getBuffer(RenderType.solid());
@@ -41,7 +38,7 @@ public class MechanicalChickenRenderer extends KineticBlockEntityRenderer<Mechan
 
         CycleBehavior cycleBehavior = be.getCycleBehaviour();
 
-        SuperByteBuffer headRender = CachedBufferer.partialFacing(ModPartials.MECHANICAL_CHICKEN_HEAD, blockState,
+        SuperByteBuffer headRender = CachedBuffers.partialFacing(ModPartials.MECHANICAL_CHICKEN_HEAD, blockState,
                 blockState.getValue(HORIZONTAL_FACING).getOpposite());
 
         float yPos = 0.0f;
@@ -52,16 +49,8 @@ public class MechanicalChickenRenderer extends KineticBlockEntityRenderer<Mechan
                 .light(light)
                 .renderInto(ms, vb);
 
-      /*double angle = 1 * cycleBehavior.getProgress(partialTicks);
-      SuperByteBuffer cogRenderer = CachedBufferer.partial(ModPartials.MECHANICAL_CHICKEN_COG_HORIZONTAL, blockState);
-                cogRenderer
-                .centre()
-                .rotateYRadians(-angle + Mth.HALF_PI)
-               .unCentre()
-               .light(light)
-               .renderInto(ms, vb);*/
 
-        SuperByteBuffer superBuffer = CachedBufferer.partial(ModPartials.MECHANICAL_CHICKEN_COG_HORIZONTAL,blockState);
+        SuperByteBuffer superBuffer = CachedBuffers.partial(ModPartials.MECHANICAL_CHICKEN_COG_HORIZONTAL,blockState);
         standardKineticRotationTransform(superBuffer, be, light).renderInto(ms, vb);
     }
 }

@@ -4,17 +4,14 @@ import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
 import com.oierbravo.create_mechanical_chicken.ModRegistration;
 import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenConfigs;
 import com.oierbravo.create_mechanical_chicken.foundation.utility.ModLang;
-import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
-import com.simibubi.create.foundation.utility.Lang;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -125,7 +122,7 @@ public class JEIPlugin implements IModPlugin {
 
             if (recipe.fluid != null) {
                 input.addIngredients(ForgeTypes.FLUID_STACK, recipe.fluid.getMatchingFluidStacks())
-                        .addTooltipCallback(addFluidTooltip(recipe.fluid.getRequiredAmount()));
+                        .addRichTooltipCallback(addFluidTooltip(recipe.fluid.getRequiredAmount()));
             }
 
             var output = builder.addSlot(RecipeIngredientRole.OUTPUT, 155,15);
