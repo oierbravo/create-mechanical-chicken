@@ -17,8 +17,6 @@ import org.joml.Vector3f;
 
 import java.util.function.Supplier;
 
-import static com.simibubi.create.Create.REGISTRATE;
-
 public class ModFluids {
     public static String PREFIX = "seed_oil_fluid";
     public static final CreateRegistrate REGISTRATE = CreateMechanicalChicken.registrate();

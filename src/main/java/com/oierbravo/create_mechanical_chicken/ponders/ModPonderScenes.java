@@ -12,7 +12,7 @@ public class ModPonderScenes {
         PonderSceneRegistrationHelper<ItemProviderEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
 
         HELPER.forComponents(ModRegistration.MECHANICAL_CHICKEN_BLOCK)
-                .addStoryBoard("mechanical_extruder_basic", MechanicalChickenScenes::mechanicalChicken);
+                .addStoryBoard("mechanical_chicken", MechanicalChickenScenes::mechanicalChicken);
 
     }
 }

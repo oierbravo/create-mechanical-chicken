@@ -11,6 +11,7 @@ public class MechanicalChickenConfigs {
     public static ForgeConfigSpec.IntValue REQUIRED_FLUID_AMOUNT;
     public static ForgeConfigSpec.ConfigValue<String> REQUIRED_FLUID;
     public static ForgeConfigSpec.BooleanValue SEED_OIL_ENABLED;
+    public static ForgeConfigSpec.DoubleValue SOUND_VOLUME;
 
     public static void registerCommonConfig(ForgeConfigSpec.Builder COMMON_BUILDER) {
         COMMON_BUILDER.comment("Settings for the mechanical chicken").push("create_mechanical_chicken");
@@ -38,6 +39,10 @@ public class MechanicalChickenConfigs {
                         .define("requiredFluid","#forge:seed_oil");
 
         SEED_OIL_ENABLED = COMMON_BUILDER.define("seedOilEnabled",true);
+
+        SOUND_VOLUME = COMMON_BUILDER
+                .comment("Sound volume")
+                .defineInRange("stressImpact", 0.6, 0.0, 1);
 
         COMMON_BUILDER.pop();
     }

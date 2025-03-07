@@ -26,6 +26,6 @@ side="BOTH"
 [[dependencies.create_mechanical_chicken]]
     modId = "create"
     mandatory = true
-    versionRange="[0.5.1.h,)"
+    versionRange="[6.0.2,6.1.0)"
     ordering = "AFTER"
     side = "BOTH"

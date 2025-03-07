@@ -11,7 +11,9 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -28,15 +30,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.simibubi.create.compat.jei.category.CreateRecipeCategory.addFluidTooltip;
+import java.util.Optional;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
@@ -122,7 +123,7 @@ public class JEIPlugin implements IModPlugin {
 
             if (recipe.fluid != null) {
                 input.addIngredients(ForgeTypes.FLUID_STACK, recipe.fluid.getMatchingFluidStacks())
-                        .addRichTooltipCallback(addFluidTooltip(recipe.fluid.getRequiredAmount()));
+                        .addRichTooltipCallback(MechanicalChickenCategory::addFluidAmountTooltip);
             }
 
             var output = builder.addSlot(RecipeIngredientRole.OUTPUT, 155,15);
@@ -132,6 +133,14 @@ public class JEIPlugin implements IModPlugin {
             }
         }
 
+        private static void addFluidAmountTooltip(IRecipeSlotView recipeSlotView, ITooltipBuilder tooltip){
+            Optional<FluidStack> displayed = recipeSlotView.getDisplayedIngredient(ForgeTypes.FLUID_STACK);
+            if (displayed.isEmpty())
+                return;
+
+            FluidStack fluidStack = displayed.get();
+            tooltip.add(Component.literal(fluidStack.getAmount() + "mB"));
+        }
         @Override
         public void draw(MechanicalChickenRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
             Minecraft minecraft = Minecraft.getInstance();
