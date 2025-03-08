@@ -1,0 +1,14 @@
+// 1.21.1	2025-03-08T04:26:31.582638743	Registrate Provider for create_mechanical_chicken [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+df3a7f5d4299dabed79e771f18dd74a654530cce assets/create_mechanical_chicken/blockstates/chicken_nutrient.json
+7e5fb327de6bf1b08d30bdaba19f3c9d91f1d1b2 assets/create_mechanical_chicken/blockstates/mechanical_chicken.json
+2c4e48301409cacd9869f1a59765dc277b535845 assets/create_mechanical_chicken/lang/en_ud.json
+7c3e5585fcffa1bc49bf644fbda04baf98cc58a8 assets/create_mechanical_chicken/lang/en_us.json
+4cee048253723d68f4fae805957f2a94acf4ea4a assets/create_mechanical_chicken/models/block/chicken_nutrient.json
+9ea9e6897618d9b55f816487e527eb75be38aae4 assets/create_mechanical_chicken/models/item/chicken_nutrient_bucket.json
+1b288bedc81e809ca237aeba2a1374848704f690 assets/create_mechanical_chicken/models/item/mechanical_chicken.json
+1b3f97962a4ec1e5f5d7c5796c6b6faa00beb6e6 data/c/tags/fluid/chicken_nutrient.json
+280d723edb57cb6e7725881ca62fc0ba2bd6c0dd data/c/tags/item/buckets/chicken_nutrient.json
+01c6da7cb7c9a644f6621475731bd317cf24c87b data/create_mechanical_chicken/advancement/recipes/misc/crafting/mechanical_chicken.json
+d2853dc3d198aa360e6ca6d9d5139df7a45bc028 data/create_mechanical_chicken/loot_table/blocks/mechanical_chicken.json
+c3d8b6b3f18539e7d92d534d4c361875b7382483 data/create_mechanical_chicken/recipe/crafting/mechanical_chicken.json
+b09a0cf0e791b10bc3ea53ca724685d5b882c892 data/minecraft/tags/block/mineable/pickaxe.json

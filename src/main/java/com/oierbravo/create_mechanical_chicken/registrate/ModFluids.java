@@ -11,33 +11,29 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
+import net.neoforged.neoforge.fluids.BaseFlowingFluid;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.joml.Vector3f;
 
 import java.util.function.Supplier;
 
 public class ModFluids {
-    public static String PREFIX = "seed_oil_fluid";
     public static final CreateRegistrate REGISTRATE = CreateMechanicalChicken.registrate();
-
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> SEED_OIL =
-            REGISTRATE.standardFluid("seed_oil",
+    public static final FluidEntry<BaseFlowingFluid.Flowing> CHICKEN_NUTRIENT =
+            REGISTRATE.standardFluid("chicken_nutrient",
                             SolidRenderedPlaceableFluidType.create(0x88A000,
                                     () -> 1f / 8f *0.5f))
-                    .lang("Seed oil")
+                    .lang("Chicken nutrient")
                     .properties(b -> b.viscosity(2000)
                             .density(1400))
                     .fluidProperties(p -> p.levelDecreasePerBlock(2)
                             .tickRate(25)
                             .slopeFindDistance(3)
                             .explosionResistance(100f))
-                    .tag(AllTags.forgeFluidTag("seed_oil"))
-                    .tag(AllTags.forgeFluidTag("plantoil"))
-                    .source(ForgeFlowingFluid.Source::new) // TODO: remove when Registrate fixes FluidBuilder
+                    .tag(AllTags.commonFluidTag("chicken_nutrient"))
+                    .source(BaseFlowingFluid.Source::new) // TODO: remove when Registrate fixes FluidBuilder
                     .bucket()
-                    .tag(AllTags.forgeItemTag("buckets/seed_oil"))
-                    .tag(AllTags.forgeItemTag("buckets/plantoil"))
+                    .tag(AllTags.commonItemTag("buckets/chicken_nutrient"))
                     .build()
                     .register();
 

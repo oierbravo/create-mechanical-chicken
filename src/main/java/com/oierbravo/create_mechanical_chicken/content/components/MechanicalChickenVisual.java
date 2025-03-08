@@ -1,9 +1,9 @@
 package com.oierbravo.create_mechanical_chicken.content.components;
 
 import com.mojang.math.Axis;
-import com.oierbravo.create_mechanical_chicken.foundation.blockEntity.behaviour.CycleBehavior;
 import com.oierbravo.create_mechanical_chicken.registrate.ModPartials;
-import com.simibubi.create.AllPartialModels;
+import com.oierbravo.mechanical_lemon_lib.foundation.blockEntity.behaviour.CycleBehavior;
+import com.oierbravo.mechanical_lemon_lib.foundation.visual.HalfShaftVisual;
 import com.simibubi.create.content.kinetics.base.RotatingInstance;
 import com.simibubi.create.content.kinetics.press.MechanicalPressBlock;
 import com.simibubi.create.foundation.render.AllInstanceTypes;
@@ -64,7 +64,7 @@ public class MechanicalChickenVisual extends HalfShaftVisual<MechanicalChickenBl
         float progress = getProgress(mechanicalChickenBlockEntity);
         float yPos = 0.0f;
         if(getProgress(mechanicalChickenBlockEntity) > 0)
-            yPos = (float) Math.sin(progress) /100;
+            yPos = (float) Math.sin(progress) /10;
 
         chickenHead.position(getVisualPosition())
                 .translatePosition(0, .3f + yPos, 0)

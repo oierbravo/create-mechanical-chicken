@@ -14,5 +14,4 @@ public class ModLang extends Lang {
     public static LangBuilder translate(String langKey, Object... args) {
         return builder().translate(langKey, args);
     }
-
 }

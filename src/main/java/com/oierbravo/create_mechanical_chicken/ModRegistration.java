@@ -1,35 +1,34 @@
 package com.oierbravo.create_mechanical_chicken;
 
 import com.oierbravo.create_mechanical_chicken.content.components.*;
-import com.oierbravo.create_mechanical_chicken.registrate.ModFluids;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllItems;
-import com.simibubi.create.AllPartialModels;
-import com.simibubi.create.AllTags;
-import com.simibubi.create.content.kinetics.base.OrientedRotatingVisual;
+import com.oierbravo.create_mechanical_chicken.infrastructure.ModStress;
+import com.simibubi.create.*;
+import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
+import org.jetbrains.annotations.NotNull;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 public class ModRegistration {
 	public static final CreateRegistrate REGISTRATE = CreateMechanicalChicken.registrate();
-
 	public static final BlockEntry<MechanicalChickenBlock> MECHANICAL_CHICKEN_BLOCK = REGISTRATE.block("mechanical_chicken", MechanicalChickenBlock::new)
 			.initialProperties(SharedProperties::stone)
             .properties(p -> p.mapColor(MapColor.METAL))
 			.transform(pickaxeOnly())
+			.transform(ModStress.setImpact(4.0))
 			.blockstate(BlockStateGen.horizontalBlockProvider(true))
-			//.transform(BlockStressDefaults.setImpact(MechanicalChickenConfigs.STRESS_IMPACT.get()))
 			.recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.get())
 					.define('S',AllBlocks.SHAFT)
                     .define('V', AllBlocks.ITEM_VAULT)
@@ -46,6 +45,8 @@ public class ModRegistration {
 			.register();
 
 
+
+
 	public static final BlockEntityEntry<MechanicalChickenBlockEntity> MECHANICAL_CHICKEN_BLOCK_ENTITY = REGISTRATE
 			.blockEntity("mechanical_chicken_block_entity", MechanicalChickenBlockEntity::new)
 			.visual(() -> MechanicalChickenVisual::new)
@@ -56,11 +57,5 @@ public class ModRegistration {
 
 
 	public static void init() {
-		// load the class and register everything
-		CreateMechanicalChicken.LOGGER.info("Registering blocks for " + CreateMechanicalChicken.DISPLAY_NAME);
-		if(MechanicalChickenConfigs.SEED_OIL_ENABLED.get()){
-			ModFluids.register();
-		}
-
 	}
 }

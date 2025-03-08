@@ -9,7 +9,7 @@
       "item": "create:cogwheel"
     },
     "E": {
-      "tag": "forge:eggs"
+      "tag": "c:eggs"
     },
     "S": {
       "item": "create:shaft"
@@ -24,7 +24,7 @@
     "BSB"
   ],
   "result": {
-    "item": "create_mechanical_chicken:mechanical_chicken"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "create_mechanical_chicken:mechanical_chicken"
+  }
 }

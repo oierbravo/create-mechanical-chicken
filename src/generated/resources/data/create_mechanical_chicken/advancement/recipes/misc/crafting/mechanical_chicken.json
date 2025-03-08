@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "create:casing"
+            "items": "#create:casing"
           }
         ]
       },
@@ -20,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_brass_sheet",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_brass_sheet"
     ]
   ],
   "rewards": {
     "recipes": [
       "create_mechanical_chicken:crafting/mechanical_chicken"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

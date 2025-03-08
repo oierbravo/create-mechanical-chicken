@@ -1,49 +1,47 @@
 package com.oierbravo.create_mechanical_chicken.content.components;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import com.oierbravo.create_mechanical_chicken.infrastructure.ModStress;
+import com.simibubi.create.infrastructure.config.CKinetics;
+import com.simibubi.create.infrastructure.config.CStress;
+import net.createmod.catnip.config.ConfigBase;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
-public class MechanicalChickenConfigs {
+public class MechanicalChickenConfigs extends ConfigBase {
+    private static final int VERSION = 1;
 
-    public static ForgeConfigSpec.IntValue PROCESSING_TIME;
-    public static ForgeConfigSpec.IntValue OUTPUT_AMOUNT;
-    public static ForgeConfigSpec.DoubleValue STRESS_IMPACT;
-    public static ForgeConfigSpec.IntValue FLUID_CAPACITY;
-    public static ForgeConfigSpec.IntValue REQUIRED_FLUID_AMOUNT;
-    public static ForgeConfigSpec.ConfigValue<String> REQUIRED_FLUID;
-    public static ForgeConfigSpec.BooleanValue SEED_OIL_ENABLED;
-    public static ForgeConfigSpec.DoubleValue SOUND_VOLUME;
+    public final ConfigInt processingTime = i(500, 0, Integer.MAX_VALUE, "processingTime", MechanicalChickenConfigs.Comments.processingTime);
+    public final ConfigInt outputAmount = i(1, 1, "outputAmount", MechanicalChickenConfigs.Comments.outputAmount);
+    //public final ConfigFloat stressImpact = f(4f, 0f, 4096f, "stressImpact", MechanicalChickenConfigs.Comments.stressImpact);
+    public final ConfigInt fluidCapacity = i(1000, "fluidCapacity", MechanicalChickenConfigs.Comments.fluidCapacity);
+    public final ConfigInt requiredFluidAmount = i(100, "requiredFluidAmount", MechanicalChickenConfigs.Comments.requiredFluidAmount);
+    public final ConfigString requiredFluid = s("create_mechanical_chicken:chicken_nutrient","requiredFluid",MechanicalChickenConfigs.Comments.requiredFluid);
+    public final ConfigFloat soundVolume = f(0.5f, 0, 1f, "soundVolume", MechanicalChickenConfigs.Comments.soundVolume);
 
-    public static void registerCommonConfig(ForgeConfigSpec.Builder COMMON_BUILDER) {
-        COMMON_BUILDER.comment("Settings for the mechanical chicken").push("create_mechanical_chicken");
+    private static class Comments {
+        static String processingTime = "Processing time (in ticks).";
+        static String outputAmount = "Output amount.";
+        static String stressImpact = "Stress impact.";
+        static String fluidCapacity = "Fluid capacity.";
+        static String requiredFluidAmount = "Required fluid amount.";
+        static String requiredFluid = "Required fluid.";
+        static String soundVolume = "Sound volume.";
 
-        PROCESSING_TIME = COMMON_BUILDER
-                .comment("Processing time (in ticks)")
-                .defineInRange("processingTime", 500, 0, Integer.MAX_VALUE);
+    }
 
-        STRESS_IMPACT = COMMON_BUILDER
-                .comment("Stress impact")
-                .defineInRange("stressImpact", 4.0, 0.0, 64.0);
-        FLUID_CAPACITY = COMMON_BUILDER
-                .comment("Fluid capacity")
-                .defineInRange("fluidCapacity", 1000, 1, Integer.MAX_VALUE);
+    @Override
+    public String getName() {
+        return "mechanical_chicken.v" + VERSION;
+    }
 
-        REQUIRED_FLUID_AMOUNT = COMMON_BUILDER
-                .comment("Required fluid amount")
-                .defineInRange("requiredFluidAmount", 100, 0, Integer.MAX_VALUE);
 
-        OUTPUT_AMOUNT = COMMON_BUILDER
-                .comment("Output amount")
-                .defineInRange("outputAmount", 1, 1, Integer.MAX_VALUE);
-        REQUIRED_FLUID = COMMON_BUILDER
-                .comment("Required fluid")
-                        .define("requiredFluid","#forge:seed_oil");
 
-        SEED_OIL_ENABLED = COMMON_BUILDER.define("seedOilEnabled",true);
+    public class ConfigString extends CValue<String, ModConfigSpec.ConfigValue<String>> {
 
-        SOUND_VOLUME = COMMON_BUILDER
-                .comment("Sound volume")
-                .defineInRange("stressImpact", 0.6, 0.0, 1);
-
-        COMMON_BUILDER.pop();
+        public ConfigString(String name, String current, String... comment) {
+            super(name, builder -> builder.define(name, current), comment);
+        }
+    }
+    protected ConfigString s(String current, String name, String... comment) {
+        return new ConfigString(name, current, comment);
     }
 }

@@ -1,56 +1,68 @@
 package com.oierbravo.create_mechanical_chicken.registrate;
 
-import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-import com.electronwill.nightconfig.core.io.WritingMode;
-import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
-import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenConfigs;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
-import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.oierbravo.create_mechanical_chicken.infrastructure.ModStress;
+import com.simibubi.create.api.stress.BlockStressValues;
+import com.simibubi.create.infrastructure.config.CStress;
+import net.createmod.catnip.config.ConfigBase;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.stream.Collectors;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class ModConfigs {
-    public static ForgeConfigSpec COMMON;
-    public static void register() {
-        registerServerConfigs();
-        registerCommonConfigs();
-        registerClientConfigs();
+    private static final Map<ModConfig.Type, ConfigBase> CONFIGS = new EnumMap<>(ModConfig.Type.class);
+
+    private static ModConfigServer server;
+    public static ModConfigServer server() {
+        return server;
     }
-    private static void registerClientConfigs() {
-        ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_BUILDER.build());
+    public static ConfigBase byType(ModConfig.Type type) {
+        return CONFIGS.get(type);
+    }
+    private static <T extends ConfigBase> T register(Supplier<T> factory, ModConfig.Type side) {
+        Pair<T, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(builder -> {
+            T config = factory.get();
+            config.registerAll(builder);
+            return config;
+        });
+
+        T config = specPair.getLeft();
+        config.specification = specPair.getRight();
+        CONFIGS.put(side, config);
+        return config;
+    }
+    public static void register(ModLoadingContext context, ModContainer container) {
+        server = register(ModConfigServer::new, ModConfig.Type.SERVER);
+
+        for (Map.Entry<ModConfig.Type, ConfigBase> pair : CONFIGS.entrySet())
+            container.registerConfig(pair.getKey(), pair.getValue().specification);
+
+        ModStress stress = server().stressValues;
+        BlockStressValues.IMPACTS.registerProvider(stress::getImpact);
     }
 
-    private static void registerCommonConfigs() {
-        ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
-        MechanicalChickenConfigs.registerCommonConfig(COMMON_BUILDER);
-
-        COMMON = COMMON_BUILDER.build();
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON);
-        ModConfigs.loadConfig(COMMON, FMLPaths.CONFIGDIR.get().resolve(CreateMechanicalChicken.MODID + "-common.toml"));
-
+    @SubscribeEvent
+    public static void onLoad(ModConfigEvent.Loading event) {
+        for (ConfigBase config : CONFIGS.values())
+            if (config.specification == event.getConfig()
+                    .getSpec())
+                config.onLoad();
     }
 
-    private static void registerServerConfigs() {
-        ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
-
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_BUILDER.build());
-
-    }
-    //from: https://github.com/mrh0/createaddition/blob/1.19.2/src/main/java/com/mrh0/createaddition/config/Config.java
-    public static void loadConfig(ForgeConfigSpec spec, java.nio.file.Path path) {
-        final CommentedFileConfig configData = CommentedFileConfig.builder(path)
-                .sync()
-                .autosave()
-                .writingMode(WritingMode.REPLACE)
-                .build();
-        configData.load();
-        spec.setConfig(configData);
+    @SubscribeEvent
+    public static void onReload(ModConfigEvent.Reloading event) {
+        for (ConfigBase config : CONFIGS.values())
+            if (config.specification == event.getConfig()
+                    .getSpec())
+                config.onReload();
     }
 }
