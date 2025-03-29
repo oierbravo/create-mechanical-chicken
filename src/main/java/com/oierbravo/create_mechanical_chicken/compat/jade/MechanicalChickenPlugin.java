@@ -2,7 +2,7 @@ package com.oierbravo.create_mechanical_chicken.compat.jade;
 
 import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenBlock;
 import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenBlockEntity;
-import com.oierbravo.mechanical_lemon_lib.jade.LemonProgressComponentProvider;
+import com.oierbravo.mechanicals.jade.MechanicalProgressComponentProvider;
 import net.minecraft.resources.ResourceLocation;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaCommonRegistration;
@@ -15,11 +15,11 @@ public class MechanicalChickenPlugin implements IWailaPlugin {
 
     @Override
     public void register(IWailaCommonRegistration registration) {
-        registration.registerBlockDataProvider(new LemonProgressComponentProvider(MECHANICAL_CHICKEN_DATA), MechanicalChickenBlockEntity.class);
+        registration.registerBlockDataProvider(new MechanicalProgressComponentProvider(MECHANICAL_CHICKEN_DATA), MechanicalChickenBlockEntity.class);
     }
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
-        registration.registerBlockComponent(new LemonProgressComponentProvider(MECHANICAL_CHICKEN_DATA), MechanicalChickenBlock.class);
+        registration.registerBlockComponent(new MechanicalProgressComponentProvider(MECHANICAL_CHICKEN_DATA), MechanicalChickenBlock.class);
     }
 }

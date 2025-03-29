@@ -1,6 +1,6 @@
 modLoader="javafml" #mandatory
 loaderVersion = "[0,)"
-license="MIT"
+license="LGPL3"
 [[mods]] #mandatory
 modId="create_mechanical_chicken" #mandatory
 version="${file.jarVersion}" #mandatory
@@ -28,6 +28,6 @@ Simple chicken egg generator
 [[dependencies."${mod_id}"]]
     modId = "create"
     mandatory = true
-    versionRange="[6.0.2,6.1.0)"
+    versionRange="[6.0.4,6.1.0)"
     ordering = "AFTER"
     side = "BOTH"

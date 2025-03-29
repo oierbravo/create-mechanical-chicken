@@ -1,6 +1,7 @@
 package com.oierbravo.create_mechanical_chicken.foundation.data.recipe;
 
 import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
+import com.oierbravo.create_mechanical_chicken.ModConstants;
 import com.oierbravo.create_mechanical_chicken.registrate.ModConfigs;
 import com.oierbravo.create_mechanical_chicken.registrate.ModFluids;
 import com.simibubi.create.content.kinetics.mixer.CompactingRecipe;
@@ -24,7 +25,7 @@ public class MechanicalChickenRecipeGen extends RecipeProvider {
 
     @Override
     protected void buildRecipes(RecipeOutput output) {
-        new ProcessingRecipeBuilder<>(MixingRecipe::new,CreateMechanicalChicken.asResource("mixing_chicken_nutrient"))
+        new ProcessingRecipeBuilder<>(MixingRecipe::new, ModConstants.asResource("mixing_chicken_nutrient"))
                 .require(Tags.Items.SEEDS)
                 .require(Fluids.WATER, 100)
                 .output(ModFluids.CHICKEN_NUTRIENT.get(),100)

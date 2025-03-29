@@ -54,25 +54,7 @@ public class MechanicalChickenCategory implements IRecipeCategory<MechanicalChic
 
 
     public MechanicalChickenCategory(IGuiHelper guiHelper) {
-        /*
-        this.background = new IDrawable() {
-            @Override
-            public int getWidth() {
-                return 176;
-            }
 
-            @Override
-            public int getHeight() {
-                return 40;
-            }
-
-            @Override
-            public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
-                AllGuiTextures.JEI_ARROW.render(graphics, 30, 16); //Output arrow
-                AllGuiTextures.JEI_ARROW.render(graphics, 110, 16); //Output arrow
-                chicken.draw(graphics, 82, 35);
-            }
-        };*/
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModRegistration.MECHANICAL_CHICKEN_BLOCK));
         this.slotDrawable = guiHelper.getSlotDrawable();
     }

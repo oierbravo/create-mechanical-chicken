@@ -1,6 +1,7 @@
 package com.oierbravo.create_mechanical_chicken.ponders;
 
 import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
+import com.oierbravo.create_mechanical_chicken.ModConstants;
 import net.createmod.ponder.api.registration.PonderPlugin;
 import net.createmod.ponder.api.registration.PonderSceneRegistrationHelper;
 import net.createmod.ponder.api.registration.PonderTagRegistrationHelper;
@@ -11,7 +12,7 @@ public class ModPonderPlugin implements PonderPlugin {
 
 	@Override
 	public @NotNull String getModId() {
-		return CreateMechanicalChicken.MODID;
+		return ModConstants.MODID;
 	}
 
 	@Override

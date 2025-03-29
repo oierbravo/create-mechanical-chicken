@@ -4,9 +4,8 @@ import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
 import com.oierbravo.create_mechanical_chicken.ModRegistration;
 import com.oierbravo.create_mechanical_chicken.foundation.utility.ModLang;
 import com.oierbravo.create_mechanical_chicken.registrate.ModConfigs;
-import com.oierbravo.mechanical_lemon_lib.foundation.blockEntity.behaviour.CycleBehavior;
-import com.oierbravo.mechanical_lemon_lib.jade.IHavePercent;
-import com.simibubi.create.content.fluids.drain.ItemDrainItemHandler;
+import com.oierbravo.mechanicals.foundation.blockEntity.behaviour.CycleBehavior;
+import com.oierbravo.mechanicals.jade.IHavePercent;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
@@ -72,7 +71,7 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
         inputTank = SmartFluidTankBehaviour.single(this, ModConfigs.server().mechanicalChicken.fluidCapacity.get());
         behaviours.add(inputTank);
 
-        cycleBehaviour = new CycleBehavior(this, ModConfigs.server().mechanicalChicken.processingTime.get(),true);
+        cycleBehaviour = new CycleBehavior(this, ModConfigs.server().mechanicalChicken.processingTime.get(),false);
         behaviours.add(cycleBehaviour);
     }
 
@@ -139,6 +138,11 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
     public void onCycleCompleted() {}
 
     @Override
+    public void onOperationCompletd() {
+
+    }
+
+    @Override
     public float getKineticSpeed() {
         return getSpeed();
     }
@@ -170,6 +174,11 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
     }
 
     @Override
+    public int getCycles() {
+        return 1;
+    }
+
+    @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         boolean added = super.addToGoggleTooltip(tooltip, isPlayerSneaking);
         if( this.cycleBehaviour.isRunning()) {
@@ -181,7 +190,7 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
 
     @Override
     public int getProgressPercent() {
-        return this.cycleBehaviour.getProgressPercent();
+        return this.cycleBehaviour.getCycleProgressPercent();
     }
 
     public FluidIngredient getFluidIngredient(){

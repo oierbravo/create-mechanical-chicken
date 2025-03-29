@@ -5,6 +5,7 @@
   "block.create_mechanical_chicken.mechanical_chicken.tooltip.summary": "˙ɹoʇɐɹǝuǝb ‾bbƎ‾ uǝʞɔıɥƆ",
   "config.jade.plugin_create_mechanical_chicken.data": "ɐʇɐp uǝʞɔıɥɔ ןɐɔıuɐɥɔǝW",
   "create_mechanical_chicken.chicken.tooltip.progress": "%d%% :ssǝɹboɹԀ",
+  "create_mechanical_chicken.itemGroup.create_mechanical_chicken:main": "uǝʞɔıɥƆ ןɐɔıuɐɥɔǝW ǝʇɐǝɹƆ",
   "create_mechanical_chicken.ponder.mechanical_chicken.header": "sbbǝ uǝʞɔıɥɔ sǝʇɐɹǝuǝ⅁",
   "create_mechanical_chicken.ponder.mechanical_chicken.text_1": "sbbǝ ǝʇɐɹǝuǝb oʇ pınןɟ ɔıɟıɔǝds uɐ puɐ ǝɔɹoɟ ןɐuoıʇɐʇoɹ sǝsn uǝʞɔıɥƆ ןɐɔıuɐɥɔǝW ǝɥ⟘",
   "create_mechanical_chicken.ponder.mechanical_chicken.text_2": "ɯoʇʇoq ǝɥʇ ɯoɹɟ pǝɹǝʍod sʇI",
@@ -13,6 +14,5 @@
   "create_mechanical_chicken.ponder.mechanical_chicken.text_5": "uoıʇɐɯoʇnɐ ʎq pǝʇɔɐɹʇxǝ ǝq ʎןuo uɐƆ",
   "create_mechanical_chicken.recipe": "ǝdıɔǝᴚ uǝʞɔıɥƆ ןɐɔıuɐɥɔǝW",
   "fluid.create_mechanical_chicken.chicken_nutrient": "ʇuǝıɹʇnu uǝʞɔıɥƆ",
-  "item.create_mechanical_chicken.chicken_nutrient_bucket": "ʇǝʞɔnᗺ ʇuǝıɹʇnN uǝʞɔıɥƆ",
-  "itemGroup.create_mechanical_chicken:main": "uǝʞɔıɥƆ ןɐɔıuɐɥɔǝW ǝʇɐǝɹƆ"
+  "item.create_mechanical_chicken.chicken_nutrient_bucket": "ʇǝʞɔnᗺ ʇuǝıɹʇnN uǝʞɔıɥƆ"
 }

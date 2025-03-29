@@ -39,7 +39,7 @@ public class ModRegistration {
                     .pattern("EVE")
                     .pattern("BSB")
                     .unlockedBy("has_brass_sheet",RegistrateRecipeProvider.has(AllTags.AllItemTags.CASING.tag))
-			.save(p, CreateMechanicalChicken.asResource("crafting/" + c.getName())))
+			.save(p, ModConstants.asResource("crafting/" + c.getName())))
 			.item()
             .transform(customItemModel())
 			.register();

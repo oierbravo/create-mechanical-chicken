@@ -2,8 +2,8 @@ package com.oierbravo.create_mechanical_chicken.content.components;
 
 import com.mojang.math.Axis;
 import com.oierbravo.create_mechanical_chicken.registrate.ModPartials;
-import com.oierbravo.mechanical_lemon_lib.foundation.blockEntity.behaviour.CycleBehavior;
-import com.oierbravo.mechanical_lemon_lib.foundation.visual.HalfShaftVisual;
+import com.oierbravo.mechanicals.foundation.blockEntity.behaviour.CycleBehavior;
+import com.oierbravo.mechanicals.foundation.visual.HalfShaftVisual;
 import com.simibubi.create.content.kinetics.base.RotatingInstance;
 import com.simibubi.create.content.kinetics.press.MechanicalPressBlock;
 import com.simibubi.create.foundation.render.AllInstanceTypes;

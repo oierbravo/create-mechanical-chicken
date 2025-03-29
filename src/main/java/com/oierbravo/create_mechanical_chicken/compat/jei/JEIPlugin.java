@@ -1,6 +1,7 @@
 package com.oierbravo.create_mechanical_chicken.compat.jei;
 
 import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
+import com.oierbravo.create_mechanical_chicken.ModConstants;
 import com.oierbravo.create_mechanical_chicken.ModRegistration;
 import com.oierbravo.create_mechanical_chicken.foundation.utility.ModLang;
 import com.oierbravo.create_mechanical_chicken.registrate.ModConfigs;
@@ -44,7 +45,7 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return ResourceLocation.fromNamespaceAndPath(CreateMechanicalChicken.MODID, "jei_plugin");
+        return ResourceLocation.fromNamespaceAndPath(ModConstants.MODID, "jei_plugin");
     }
 
     @Override
