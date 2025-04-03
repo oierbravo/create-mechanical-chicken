@@ -20,7 +20,6 @@ public class MechanicalChickenConfigs extends ConfigBase {
     private static class Comments {
         static String processingTime = "Processing time (in ticks).";
         static String outputAmount = "Output amount.";
-        static String stressImpact = "Stress impact.";
         static String fluidCapacity = "Fluid capacity.";
         static String requiredFluidAmount = "Required fluid amount.";
         static String requiredFluid = "Required fluid.";
