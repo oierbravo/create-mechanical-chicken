@@ -1,10 +1,7 @@
-package com.oierbravo.create_mechanical_chicken.foundation.data.recipe;
+package com.oierbravo.create_mechanical_chicken.infrastructure.data;
 
-import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
 import com.oierbravo.create_mechanical_chicken.ModConstants;
-import com.oierbravo.create_mechanical_chicken.registrate.ModConfigs;
 import com.oierbravo.create_mechanical_chicken.registrate.ModFluids;
-import com.simibubi.create.content.kinetics.mixer.CompactingRecipe;
 import com.simibubi.create.content.kinetics.mixer.MixingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import net.minecraft.core.HolderLookup;
@@ -13,7 +10,6 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
-
 
 import java.util.concurrent.CompletableFuture;
 

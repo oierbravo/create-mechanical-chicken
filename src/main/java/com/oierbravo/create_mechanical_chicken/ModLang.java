@@ -1,7 +1,5 @@
-package com.oierbravo.create_mechanical_chicken.foundation.utility;
+package com.oierbravo.create_mechanical_chicken;
 
-import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
-import com.oierbravo.create_mechanical_chicken.ModConstants;
 import net.createmod.catnip.lang.Lang;
 import net.createmod.catnip.lang.LangBuilder;
 

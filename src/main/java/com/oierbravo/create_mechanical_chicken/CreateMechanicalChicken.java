@@ -2,6 +2,7 @@ package com.oierbravo.create_mechanical_chicken;
 
 import com.mojang.logging.LogUtils;
 import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenBlockEntity;
+import com.oierbravo.create_mechanical_chicken.infrastructure.config.MConfigs;
 import com.oierbravo.create_mechanical_chicken.infrastructure.data.ModDataGen;
 import com.oierbravo.create_mechanical_chicken.ponders.ModPonderPlugin;
 import com.oierbravo.create_mechanical_chicken.registrate.*;
@@ -45,7 +46,7 @@ public class CreateMechanicalChicken
         ModRegistration.init();
         ModFluids.register();
 
-        ModConfigs.register(modLoadingContext, modContainer);
+        MConfigs.register(modLoadingContext, modContainer);
 
 
         modEventBus.addListener(this::doClientStuff);
@@ -57,18 +58,17 @@ public class CreateMechanicalChicken
         generateLangEntries();
     }
     private void generateLangEntries(){
-        new RegistrateLangBuilder(MODID, registrate())
-            .add("itemGroup.create_mechanical_chicken:main", "Create Mechanical Chicken")
-            .addRaw("config.jade.plugin_create_mechanical_chicken.data", "Mechanical chicken data")
-            .addRaw("block.create_mechanical_chicken.mechanical_chicken.tooltip", "MECHANICAL Chicken")
-            .addRaw("block.create_mechanical_chicken.mechanical_chicken.tooltip.summary", "Chicken _Egg_ generator.")
+        new RegistrateLangBuilder<>(MODID, registrate())
+            .addCreativeTab("Create Mechanical Chicken")
+            .addJade("Mechanical chicken data")
             .add("chicken.tooltip.progress", "Progress: %d%%")
-            .add("ponder.mechanical_chicken.header", "Generates chicken eggs")
-            .add("ponder.mechanical_chicken.text_1", "The Mechanical Chicken uses rotational force and an specific fluid to generate eggs")
-            .add("ponder.mechanical_chicken.text_2", "Its powered from the bottom")
-            .add("ponder.mechanical_chicken.text_3", "Fluid input can ONLY go from the FRONT side")
-            .add("ponder.mechanical_chicken.text_4", "Egg output is ONLY located on the BACK side")
-            .add("ponder.mechanical_chicken.text_5", "Can only be extracted by automation")
+            .addBlockTooltipSummary("mechanical_chicken", "Chicken _Egg_ generator.")
+            .addPonderHeader("mechanical_chicken","Generates chicken eggs")
+            .addPonderText(1, "mechanical_chicken", "The Mechanical Chicken uses rotational force and an specific fluid to generate eggs")
+            .addPonderText(2, "mechanical_chicken", "Its powered from the bottom")
+            .addPonderText(3, "mechanical_chicken", "Fluid input can ONLY go from the FRONT side")
+            .addPonderText(4, "mechanical_chicken", "Egg output is ONLY located on the BACK side")
+            .addPonderText(5, "mechanical_chicken", "Can only be extracted by automation")
             .add("recipe", "Mechanical Chicken Recipe");
 
 

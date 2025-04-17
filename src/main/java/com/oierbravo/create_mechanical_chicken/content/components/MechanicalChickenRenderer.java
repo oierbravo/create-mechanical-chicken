@@ -3,7 +3,7 @@ package com.oierbravo.create_mechanical_chicken.content.components;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.oierbravo.create_mechanical_chicken.registrate.ModPartials;
-import com.oierbravo.mechanicals.foundation.blockEntity.behaviour.CycleBehavior;
+import com.oierbravo.mechanicals.foundation.blockEntity.behaviour.DynamicCycleBehavior;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.createmod.catnip.render.CachedBuffers;
@@ -29,7 +29,7 @@ public class MechanicalChickenRenderer extends KineticBlockEntityRenderer<Mechan
 
         BlockState blockState = be.getBlockState();
 
-        CycleBehavior cycleBehavior = be.getCycleBehaviour();
+        DynamicCycleBehavior cycleBehavior = be.getCycleBehaviour();
 
         SuperByteBuffer headRender = CachedBuffers.partialFacing(ModPartials.MECHANICAL_CHICKEN_HEAD, blockState,
                 blockState.getValue(HORIZONTAL_FACING).getOpposite());

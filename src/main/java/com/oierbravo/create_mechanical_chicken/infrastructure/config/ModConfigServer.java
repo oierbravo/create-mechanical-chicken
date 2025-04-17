@@ -1,7 +1,6 @@
-package com.oierbravo.create_mechanical_chicken.registrate;
+package com.oierbravo.create_mechanical_chicken.infrastructure.config;
 
 import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenConfigs;
-import com.oierbravo.create_mechanical_chicken.infrastructure.ModStress;
 import net.createmod.catnip.config.ConfigBase;
 
 public class ModConfigServer extends ConfigBase {

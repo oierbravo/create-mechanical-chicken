@@ -1,11 +1,11 @@
 package com.oierbravo.create_mechanical_chicken.content.components;
 
 import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
+import com.oierbravo.create_mechanical_chicken.ModLang;
 import com.oierbravo.create_mechanical_chicken.ModRegistration;
-import com.oierbravo.create_mechanical_chicken.foundation.utility.ModLang;
-import com.oierbravo.create_mechanical_chicken.registrate.ModConfigs;
+import com.oierbravo.create_mechanical_chicken.infrastructure.config.MConfigs;
 import com.oierbravo.mechanicals.compat.jade.IHavePercent;
-import com.oierbravo.mechanicals.foundation.blockEntity.behaviour.CycleBehavior;
+import com.oierbravo.mechanicals.foundation.blockEntity.behaviour.DynamicCycleBehavior;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
@@ -34,19 +34,16 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-import java.util.IdentityHashMap;
 import java.util.List;
-import java.util.Map;
 
-public class MechanicalChickenBlockEntity extends KineticBlockEntity implements CycleBehavior.CycleBehaviourSpecifics, IHavePercent {
+public class MechanicalChickenBlockEntity extends KineticBlockEntity implements DynamicCycleBehavior.DynamicCycleBehaviorSpecifics, IHavePercent {
 
-    private CycleBehavior cycleBehaviour;
+    private DynamicCycleBehavior cycleBehaviour;
     public SmartFluidTankBehaviour inputTank;
     private boolean contentsChanged;
     private FluidIngredient requiredFluidIngredient;
@@ -68,10 +65,10 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-        inputTank = SmartFluidTankBehaviour.single(this, ModConfigs.server().mechanicalChicken.fluidCapacity.get());
+        inputTank = SmartFluidTankBehaviour.single(this, MConfigs.server().mechanicalChicken.fluidCapacity.get());
         behaviours.add(inputTank);
 
-        cycleBehaviour = new CycleBehavior(this, ModConfigs.server().mechanicalChicken.processingTime.get(),false);
+        cycleBehaviour = new DynamicCycleBehavior(this);
         behaviours.add(cycleBehaviour);
     }
 
@@ -118,7 +115,7 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
         return outputInventory;
     }
 
-    public CycleBehavior getCycleBehaviour() {
+    public DynamicCycleBehavior getCycleBehaviour() {
         return cycleBehaviour;
     }
 
@@ -134,13 +131,6 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
         super.read(compound, registries, clientPacket);
     }
 
-    @Override
-    public void onCycleCompleted() {}
-
-    @Override
-    public void onOperationCompletd() {
-
-    }
 
     @Override
     public float getKineticSpeed() {
@@ -153,29 +143,29 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
         if(inputTank.getPrimaryHandler().isEmpty())
             return false;
 
-        if(inputTank.getPrimaryHandler().getFluidAmount() < ModConfigs.server().mechanicalChicken.requiredFluidAmount.get())
+        if(inputTank.getPrimaryHandler().getFluidAmount() < MConfigs.server().mechanicalChicken.requiredFluidAmount.get())
             return false;
-        if(ItemStack.EMPTY != outputInventory.insertItem(0, new ItemStack(Items.EGG,ModConfigs.server().mechanicalChicken.outputAmount.get()),true))
+        if(ItemStack.EMPTY != outputInventory.insertItem(0, new ItemStack(Items.EGG,MConfigs.server().mechanicalChicken.outputAmount.get()),true))
             return false;
 
         if(simulate)
             return true;
 
-        inputTank.getPrimaryHandler().drain(ModConfigs.server().mechanicalChicken.requiredFluidAmount.get(), IFluidHandler.FluidAction.EXECUTE);
-        outputInventory.insertItem(0, new ItemStack(Items.EGG,ModConfigs.server().mechanicalChicken.outputAmount.get()),false);
+        inputTank.getPrimaryHandler().drain(MConfigs.server().mechanicalChicken.requiredFluidAmount.get(), IFluidHandler.FluidAction.EXECUTE);
+        outputInventory.insertItem(0, new ItemStack(Items.EGG,MConfigs.server().mechanicalChicken.outputAmount.get()),false);
 
         return true;
     }
 
     @Override
-    public void playSound() {
-        //level.playSound((Entity) null, worldPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, MechanicalChickenConfigs.SOUND_VOLUME.get().floatValue(),1.0f);
-        level.playSound((Entity) null, worldPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, ModConfigs.server().mechanicalChicken.soundVolume.get().floatValue(),1.0f);
+    public int getProcessingTime() {
+        return MConfigs.server().mechanicalChicken.processingTime.get();
     }
 
     @Override
-    public int getCycles() {
-        return 1;
+    public void playSound() {
+        //level.playSound((Entity) null, worldPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, MechanicalChickenConfigs.SOUND_VOLUME.get().floatValue(),1.0f);
+        level.playSound((Entity) null, worldPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, MConfigs.server().mechanicalChicken.soundVolume.get().floatValue(),1.0f);
     }
 
     @Override
@@ -190,35 +180,33 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
 
     @Override
     public int getProgressPercent() {
-        return this.cycleBehaviour.getCycleProgressPercent();
+        return this.cycleBehaviour.getProgressPercent();
     }
 
     public FluidIngredient getFluidIngredient(){
-        int amount = ModConfigs.server().mechanicalChicken.requiredFluidAmount.get();
-        String name = ModConfigs.server().mechanicalChicken.requiredFluid.get();
+        int amount = MConfigs.server().mechanicalChicken.requiredFluidAmount.get();
+        String name = MConfigs.server().mechanicalChicken.requiredFluid.get();
         if(name.startsWith("#"))
             return FluidIngredient.fromTag(FluidTags.create(ResourceLocation.parse(name.replace("#",""))), amount);
        return FluidIngredient.fromFluid(getRequiredFluid(),amount);
     }
 
     public Fluid getRequiredFluid(){
-        return BuiltInRegistries.FLUID.get(ResourceLocation.tryParse(ModConfigs.server().mechanicalChicken.requiredFluid.get()));
+        return BuiltInRegistries.FLUID.get(ResourceLocation.tryParse(MConfigs.server().mechanicalChicken.requiredFluid.get()));
     }
 
     public FluidStack getRequiredFluidStack(){
         Fluid requiredFluid = getRequiredFluid();
         if(requiredFluid == null)
             return FluidStack.EMPTY;
-        return new FluidStack(requiredFluid, ModConfigs.server().mechanicalChicken.requiredFluidAmount.get());
+        return new FluidStack(requiredFluid, MConfigs.server().mechanicalChicken.requiredFluidAmount.get());
     }
 
     public void verifyConfig(final Logger logger) {
         if (requiredFluidIngredient == null) {
             // verify and set the configured fluid
-            final String fluidResourceRaw = ModConfigs.server().mechanicalChicken.requiredFluid.get();
-            //final String fluidResourceRaw = MechanicalChickenConfigs.REQUIRED_FLUID.get();
-            int configuredAmount = ModConfigs.server().mechanicalChicken.requiredFluidAmount.get();
-            //int configuredAmount = MechanicalChickenConfigs.REQUIRED_FLUID_AMOUNT.get();
+            final String fluidResourceRaw = MConfigs.server().mechanicalChicken.requiredFluid.get();
+            int configuredAmount = MConfigs.server().mechanicalChicken.requiredFluidAmount.get();
             if(fluidResourceRaw.startsWith("#")){
                 ResourceLocation fluidTag = ResourceLocation.tryParse(fluidResourceRaw.replace("#",""));
                 assert fluidTag != null;

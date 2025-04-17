@@ -1,8 +1,8 @@
-// 1.21.1	2025-03-28T02:55:25.378308221	Registrate Provider for create_mechanical_chicken [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-04-17T15:59:50.482230865	Registrate Provider for create_mechanical_chicken [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 df3a7f5d4299dabed79e771f18dd74a654530cce assets/create_mechanical_chicken/blockstates/chicken_nutrient.json
 7e5fb327de6bf1b08d30bdaba19f3c9d91f1d1b2 assets/create_mechanical_chicken/blockstates/mechanical_chicken.json
-2fe54c98b7ad24f290cf6029bcca8ad0c2d83a2a assets/create_mechanical_chicken/lang/en_ud.json
-92767d8bbb91652ae483efcb15a33303c324d528 assets/create_mechanical_chicken/lang/en_us.json
+56c3b179d93e35b483ba25ab246f8df8131e2962 assets/create_mechanical_chicken/lang/en_ud.json
+2538e1fe5501a6c21feda0afec48c82fdfb87f6e assets/create_mechanical_chicken/lang/en_us.json
 4cee048253723d68f4fae805957f2a94acf4ea4a assets/create_mechanical_chicken/models/block/chicken_nutrient.json
 9ea9e6897618d9b55f816487e527eb75be38aae4 assets/create_mechanical_chicken/models/item/chicken_nutrient_bucket.json
 1b288bedc81e809ca237aeba2a1374848704f690 assets/create_mechanical_chicken/models/item/mechanical_chicken.json

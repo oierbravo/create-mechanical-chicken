@@ -1,9 +1,9 @@
 package com.oierbravo.create_mechanical_chicken.compat.jei;
 
 import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
+import com.oierbravo.create_mechanical_chicken.ModLang;
 import com.oierbravo.create_mechanical_chicken.ModRegistration;
-import com.oierbravo.create_mechanical_chicken.foundation.utility.ModLang;
-import com.oierbravo.create_mechanical_chicken.registrate.ModConfigs;
+import com.oierbravo.create_mechanical_chicken.infrastructure.config.MConfigs;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import mezz.jei.api.constants.VanillaTypes;
@@ -108,8 +108,8 @@ public class MechanicalChickenCategory implements IRecipeCategory<MechanicalChic
     }
     private static FluidIngredient getFluidIngredientFromConfig(){
         FluidIngredient fluidIngredient = FluidIngredient.EMPTY;
-        final String fluidResourceRaw = ModConfigs.server().mechanicalChicken.requiredFluid.get();
-        int configuredAmount = ModConfigs.server().mechanicalChicken.requiredFluidAmount.get();
+        final String fluidResourceRaw = MConfigs.server().mechanicalChicken.requiredFluid.get();
+        int configuredAmount = MConfigs.server().mechanicalChicken.requiredFluidAmount.get();
         if(fluidResourceRaw.startsWith("#")){
             ResourceLocation fluidTag = ResourceLocation.tryParse(fluidResourceRaw.replace("#",""));
             assert fluidTag != null;
@@ -128,7 +128,7 @@ public class MechanicalChickenCategory implements IRecipeCategory<MechanicalChic
 
     public static List<MechanicalChickenRecipe> getRecipes() {
         List<MechanicalChickenRecipe> recipes = new ArrayList<>();
-        int configuredOutputAmount = ModConfigs.server().mechanicalChicken.outputAmount.get();
+        int configuredOutputAmount = MConfigs.server().mechanicalChicken.outputAmount.get();
 
         recipes.add(new MechanicalChickenRecipe(
                 getFluidIngredientFromConfig(),

@@ -2,7 +2,6 @@ package com.oierbravo.create_mechanical_chicken.infrastructure.data;
 
 import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
 import com.oierbravo.create_mechanical_chicken.ModConstants;
-import com.oierbravo.create_mechanical_chicken.foundation.data.recipe.MechanicalChickenRecipeGen;
 import com.simibubi.create.Create;
 import com.tterrag.registrate.providers.RegistrateDataProvider;
 import net.minecraft.data.DataGenerator;

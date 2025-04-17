@@ -1,22 +1,23 @@
 package com.oierbravo.create_mechanical_chicken;
 
-import com.oierbravo.create_mechanical_chicken.content.components.*;
-import com.oierbravo.create_mechanical_chicken.infrastructure.ModStress;
-import com.simibubi.create.*;
-import com.simibubi.create.api.stress.BlockStressValues;
+import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenBlock;
+import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenBlockEntity;
+import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenRenderer;
+import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenVisual;
+import com.oierbravo.create_mechanical_chicken.infrastructure.config.ModStress;
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.AllItems;
+import com.simibubi.create.AllTags;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.common.Tags;
-import org.jetbrains.annotations.NotNull;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;

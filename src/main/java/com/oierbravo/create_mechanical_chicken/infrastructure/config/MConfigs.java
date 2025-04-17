@@ -1,8 +1,6 @@
-package com.oierbravo.create_mechanical_chicken.registrate;
+package com.oierbravo.create_mechanical_chicken.infrastructure.config;
 
-import com.oierbravo.create_mechanical_chicken.infrastructure.ModStress;
 import com.simibubi.create.api.stress.BlockStressValues;
-import com.simibubi.create.infrastructure.config.CStress;
 import net.createmod.catnip.config.ConfigBase;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -18,7 +16,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
-public class ModConfigs {
+public class MConfigs {
     private static final Map<ModConfig.Type, ConfigBase> CONFIGS = new EnumMap<>(ModConfig.Type.class);
 
     private static ModConfigServer server;

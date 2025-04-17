@@ -1,8 +1,6 @@
-package com.oierbravo.create_mechanical_chicken.infrastructure;
+package com.oierbravo.create_mechanical_chicken.infrastructure.config;
 
-import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
 import com.oierbravo.create_mechanical_chicken.ModConstants;
-import com.simibubi.create.Create;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
