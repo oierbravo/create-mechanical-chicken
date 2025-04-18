@@ -162,8 +162,9 @@ public class MechanicalChickenBlockEntity extends KineticBlockEntity implements 
         return MConfigs.server().mechanicalChicken.processingTime.get();
     }
 
+
     @Override
-    public void playSound() {
+    public void playCompletionSound() {
         //level.playSound((Entity) null, worldPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, MechanicalChickenConfigs.SOUND_VOLUME.get().floatValue(),1.0f);
         level.playSound((Entity) null, worldPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, MConfigs.server().mechanicalChicken.soundVolume.get().floatValue(),1.0f);
     }
