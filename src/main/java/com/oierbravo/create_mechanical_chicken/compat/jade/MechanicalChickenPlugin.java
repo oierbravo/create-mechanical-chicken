@@ -1,5 +1,6 @@
 package com.oierbravo.create_mechanical_chicken.compat.jade;
 
+import com.oierbravo.create_mechanical_chicken.ModConstants;
 import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenBlock;
 import com.oierbravo.create_mechanical_chicken.content.components.MechanicalChickenBlockEntity;
 import com.oierbravo.mechanicals.compat.jade.MechanicalProgressComponentProvider;
@@ -11,7 +12,7 @@ import snownee.jade.api.WailaPlugin;
 
 @WailaPlugin
 public class MechanicalChickenPlugin implements IWailaPlugin {
-    public static final ResourceLocation MECHANICAL_CHICKEN_DATA = ResourceLocation.parse("create_mechanical_chicken:data");
+    public static final ResourceLocation MECHANICAL_CHICKEN_DATA = ModConstants.asResource("data");
 
     @Override
     public void register(IWailaCommonRegistration registration) {

@@ -17,7 +17,6 @@ public class MechanicalChickenRecipeGen extends RecipeProvider {
     public MechanicalChickenRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider);
     }
-    // Get the parameters from GatherDataEvent.
 
     @Override
     protected void buildRecipes(RecipeOutput output) {
