@@ -3,6 +3,11 @@
 Addon for create.
 Generates eggs with rotation and fluid.
 
+## 1.21.1-2.x Version Requires Mechanicals Lib
+- [Curseforge](https://www.curseforge.com/minecraft/mc-mods/mechanicals-lib "Curseforge")
+- [Modrinth](https://modrinth.com/mod/mechanicals-lib "Modrinth")
+
+
 ## Features
 
 - Mechanical Chicken Kinectic block.
