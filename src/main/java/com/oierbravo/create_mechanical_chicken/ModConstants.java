@@ -9,5 +9,7 @@ public class ModConstants {
     public static ResourceLocation asResource(String path) {
         return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
-
+    public static ResourceLocation asResource() {
+        return ResourceLocation.fromNamespaceAndPath(MODID,"");
+    }
 }

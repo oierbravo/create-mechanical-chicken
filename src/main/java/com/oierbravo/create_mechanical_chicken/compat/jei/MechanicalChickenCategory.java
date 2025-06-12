@@ -4,6 +4,7 @@ import com.oierbravo.create_mechanical_chicken.CreateMechanicalChicken;
 import com.oierbravo.create_mechanical_chicken.ModLang;
 import com.oierbravo.create_mechanical_chicken.ModRegistration;
 import com.oierbravo.create_mechanical_chicken.infrastructure.config.MConfigs;
+import com.oierbravo.mechanicals.utility.MechanicalConfigUtils;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import mezz.jei.api.constants.VanillaTypes;
@@ -131,7 +132,7 @@ public class MechanicalChickenCategory implements IRecipeCategory<MechanicalChic
         int configuredOutputAmount = MConfigs.server().mechanicalChicken.outputAmount.get();
 
         recipes.add(new MechanicalChickenRecipe(
-                getFluidIngredientFromConfig(),
+                MechanicalConfigUtils.readFluidIngredient(MConfigs.server().mechanicalChicken.requiredFluid.get(),MConfigs.server().mechanicalChicken.requiredFluidAmount.get(), FluidIngredient.fromFluid(Fluids.WATER,configuredOutputAmount)),
                 new ItemStack(Items.EGG,configuredOutputAmount)
         ));
         return recipes;

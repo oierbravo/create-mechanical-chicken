@@ -1,8 +1,5 @@
 package com.oierbravo.create_mechanical_chicken.content.components;
 
-import com.oierbravo.create_mechanical_chicken.infrastructure.ModStress;
-import com.simibubi.create.infrastructure.config.CKinetics;
-import com.simibubi.create.infrastructure.config.CStress;
 import net.createmod.catnip.config.ConfigBase;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
