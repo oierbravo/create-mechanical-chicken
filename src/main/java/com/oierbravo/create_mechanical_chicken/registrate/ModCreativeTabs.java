@@ -2,7 +2,7 @@ package com.oierbravo.create_mechanical_chicken.registrate;
 
 import com.oierbravo.create_mechanical_chicken.ModLang;
 import com.oierbravo.create_mechanical_chicken.ModRegistration;
-import com.oierbravo.mechanicals.utility.MechanicalLangIdGenerator;
+import com.oierbravo.mechanicals.utility.LangIdGenerator;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.bus.api.IEventBus;
@@ -17,7 +17,7 @@ public class ModCreativeTabs {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB = TAB_REGISTER.register("main",
             () -> CreativeModeTab.builder()
-                    .title(ModLang.translate(MechanicalLangIdGenerator.creativeTabId("main")).component())
+                    .title(ModLang.translate(LangIdGenerator.creativeTab()).component())
                     .icon(ModRegistration.MECHANICAL_CHICKEN_BLOCK::asStack)
                     .build());
 
